@@ -21,5 +21,20 @@ public class Character {
     private String name;
     private String archetype;
     private String alignment;
-    private String traits; // You can later make this a List
+
+    
+    // private String traits ---> became all of these
+
+    private int empathy;
+    private int impulsiveness;
+    private int resilience;
+    private int logic;
+    private int curiosity;
+    private int creativity;
+    private int humor;
+    private int assertiveness;
+    private int agreeableness;
+    private int loyalty;
+    private int ambition;
+
 }

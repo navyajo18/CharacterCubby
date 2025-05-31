@@ -23,4 +23,9 @@ public class CharacterService {
     public Character addCharacter(Character character) {
         return repository.save(character);
     }
+
+    public void deleteCharacter(Long id) {
+        repository.deleteById(id);
+    }
+
 }

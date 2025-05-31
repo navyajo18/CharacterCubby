@@ -1,0 +1,49 @@
+.character-card {
+  background-color: #fefae0;
+  border: 2px solid #d4a373;
+  border-radius: 10px;
+  padding: 16px;
+  margin: 10px;
+  font-family: 'Courier New', monospace;
+  width: 220px;
+  box-shadow: 3px 3px 6px #888888;
+}
+
+.trait-sliders {
+  margin-top: 10px;
+  padding-top: 6px;
+  border-top: 1px dashed #ccc;
+}
+
+.slider-group {
+  margin-bottom: 6px;
+}
+
+.delete-button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #f28482;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-family: 'Courier New', monospace;
+  box-shadow: 2px 2px 4px #aaa;
+}
+
+.delete-button:hover {
+  background-color: #d9534f;
+}
+
+.slider-group label {
+  font-size: 12px;
+  font-weight: bold;
+  display: block;
+}
+
+.slider-group input[type="range"] {
+  width: 100%;
+  accent-color: var(--slider-color);
+  background: transparent;
+}
