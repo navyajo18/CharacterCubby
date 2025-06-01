@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import { createCharacter } from '../api';
+import TraitWordBank from './TraitWordBank'; // ⬅️ import it
 
 const CharacterForm = ({ onCharacterAdded }) => {
   const [formData, setFormData] = useState({
     name: '',
     archetype: '',
     alignment: '',
-    traits: '',
+    traits: [],
     mbti: '',
-    openness: 50,
-    conscientiousness: 50,
-    extraversion: 50,
-    agreeableness: 50,
-    neuroticism: 50
+    age: 25,
+    socialEnergy: 50,
+    moodTone: 50,
+    structure: 50,
+    imagination: 50
   });
 
   const handleChange = (e) => {
@@ -25,19 +26,22 @@ const CharacterForm = ({ onCharacterAdded }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await createCharacter(formData);
+    const response = await createCharacter({
+      ...formData,
+      traits: formData.traits.join(', ') // convert array to string if needed by backend
+    });
     onCharacterAdded(response.data);
     setFormData({
       name: '',
       archetype: '',
       alignment: '',
-      traits: '',
+      traits: [],
       mbti: '',
-      openness: 50,
-      conscientiousness: 50,
-      extraversion: 50,
-      agreeableness: 50,
-      neuroticism: 50
+      age: 25,
+      socialEnergy: 50,
+      moodTone: 50,
+      structure: 50,
+      imagination: 50
     });
   };
 
@@ -48,29 +52,31 @@ const CharacterForm = ({ onCharacterAdded }) => {
       <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Name" required />
       <input type="text" name="archetype" value={formData.archetype} onChange={handleChange} placeholder="Archetype" />
       <input type="text" name="alignment" value={formData.alignment} onChange={handleChange} placeholder="Alignment" />
-      <textarea name="traits" value={formData.traits} onChange={handleChange} placeholder="Traits (comma separated)" />
       <input type="text" name="mbti" value={formData.mbti} onChange={handleChange} placeholder="MBTI Type (e.g. INFP)" />
 
-      {/* Personality trait sliders */}
-      {[
-        "openness",
-        "conscientiousness",
-        "extraversion",
-        "agreeableness",
-        "neuroticism"
-      ].map((trait) => (
-        <div key={trait}>
-          <label>{trait.charAt(0).toUpperCase() + trait.slice(1)}: {formData[trait]}</label>
-          <input
-            type="range"
-            name={trait}
-            min="0"
-            max="100"
-            value={formData[trait]}
-            onChange={handleChange}
-          />
-        </div>
-      ))}
+      {/*  Trait Word Bank */}
+      <TraitWordBank
+        selectedTraits={formData.traits}
+        setSelectedTraits={(traits) =>
+          setFormData((prev) => ({ ...prev, traits }))
+        }
+      />
+
+      {/* 🎚️ New Sliders for Personality */}
+      <label>Age: {formData.age}</label>
+      <input type="range" name="age" min="5" max="100" value={formData.age} onChange={handleChange} />
+
+      <label>Social Energy (Shy — Outgoing): {formData.socialEnergy}</label>
+      <input type="range" name="socialEnergy" min="0" max="100" value={formData.socialEnergy} onChange={handleChange} />
+
+      <label>Mood Tone (Light — Brooding): {formData.moodTone}</label>
+      <input type="range" name="moodTone" min="0" max="100" value={formData.moodTone} onChange={handleChange} />
+
+      <label>Routine vs Chaos (Structured — Spontaneous): {formData.structure}</label>
+      <input type="range" name="structure" min="0" max="100" value={formData.structure} onChange={handleChange} />
+
+      <label>Imagination (Practical — Dreamy): {formData.imagination}</label>
+      <input type="range" name="imagination" min="0" max="100" value={formData.imagination} onChange={handleChange} />
 
       <button type="submit">Add Character</button>
     </form>

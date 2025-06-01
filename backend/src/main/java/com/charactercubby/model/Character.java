@@ -18,6 +18,8 @@ public class Character {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // age, hobbies, job
+
     private String name;
     private String archetype;
     private String alignment;
